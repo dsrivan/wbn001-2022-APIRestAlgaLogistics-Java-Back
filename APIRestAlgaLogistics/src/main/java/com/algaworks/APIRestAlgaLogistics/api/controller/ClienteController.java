@@ -37,4 +37,20 @@ public class ClienteController {
 	
 	@GetMapping("/clientes")
 	declara o endpoint responsável para disponibilizar o método
+	
+	documentação de http codes
+	1) https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+	2) https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+	3) https://httpstatuses.com/
+	
+	termo "Content Negotiation"
+	consiste em disponibilizar o retorno em formatos diferentes
+	ex>: json e xml
+	o json é o formato padrão, mas se quiser add outro, tem que add a dependência do tipo, no arquivo pom.xml
+	ex> add resposta em formato xml, add no pom.xml	
+	<dependency>
+		<groupId>com.fasterxml.jackson.dataformat</groupId>
+		<artifactId>jackson-dataformat-xml</artifactId>
+	</dependency>
+
 */
