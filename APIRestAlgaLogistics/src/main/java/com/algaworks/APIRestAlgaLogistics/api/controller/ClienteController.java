@@ -3,6 +3,9 @@ package com.algaworks.APIRestAlgaLogistics.api.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,21 +14,14 @@ import com.algaworks.APIRestAlgaLogistics.domain.model.Cliente;
 @RestController
 public class ClienteController {
 	
+	@PersistenceContext
+	private EntityManager manager;
+	
 	@GetMapping("/clientes")
 	public List<Cliente> listar() {
-		Cliente cliente1 = new Cliente();		
-		cliente1.setId(1L);
-		cliente1.setNome("Ivan");
-		cliente1.setTelefone("17 99602-2603");
-		cliente1.setEmail("iivan.si@msn.com");
-
-		Cliente cliente2 = new Cliente();		
-		cliente2.setId(2L);
-		cliente2.setNome("Mustafá");
-		cliente2.setTelefone("17 99602-2603");
-		cliente2.setEmail("iivan.si.mustafa@msn.com");
 		
-		return Arrays.asList(cliente1, cliente2);
+		return manager.createQuery("from Cliente", Cliente.class)
+				.getResultList();
 	}
 }
 
@@ -53,4 +49,13 @@ public class ClienteController {
 		<artifactId>jackson-dataformat-xml</artifactId>
 	</dependency>
 
+	Entitymanager: responsável por refletir no BD, as operações realizadas (CRUD)
+	
+	PersistenceContext: gera um 'container' que agrega os objetos manipulados pelo Entitymanager
+	injeta no na variável manager, um contexto Entitymanager
+	
+	JPQL no createQuery
+	trata-se de uma linguagem orientada a objeto, específica do Jacarta Persistence
+	
+	
 */
