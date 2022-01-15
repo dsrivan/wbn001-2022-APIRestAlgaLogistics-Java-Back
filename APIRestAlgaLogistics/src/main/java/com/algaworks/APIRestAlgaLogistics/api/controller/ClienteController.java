@@ -42,29 +42,12 @@ public class ClienteController {
 		return clienteRepository.findById(clienteId)				
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
-		
-		/* 
-		 	clienteRepository.findById(clienteId)
-			.map(cliente -> ResponseEntity.ok(cliente))
-			.orElse(ResponseEntity.notFound().build());
-				
-		 	ou pode ser assim
-		 	
-			Optional<Cliente> cliente = clienteRepository.findById(clienteId);
-			
-			if (cliente.isPresent()) {
-				return ResponseEntity.ok(cliente.get());
-			} else {
-				return ResponseEntity.notFound().build();
-			}
-		 */
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
 		return catalogoClienteService.salvar(cliente);
-		//return clienteRepository.save(cliente);
 	}
 	
 	@PutMapping("/{clienteId}")
@@ -77,7 +60,6 @@ public class ClienteController {
 		}
 
 		cliente.setId(clienteId);
-		//cliente = clienteRepository.save(cliente);
 		cliente = catalogoClienteService.salvar(cliente);
 		
 		return ResponseEntity.ok(cliente);
@@ -90,7 +72,6 @@ public class ClienteController {
 			return ResponseEntity.notFound().build();
 		}
 		
-		//clienteRepository.deleteById(clienteId);
 		catalogoClienteService.excluir(clienteId);
 		
 		return ResponseEntity.noContent().build();
